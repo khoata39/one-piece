@@ -1,8 +1,11 @@
 import type { Manga, Chapter, ChapterPages } from "@/types/mangadex"
 
-// api.mangadex.dev is the staging mirror — accessible when .org is ISP-blocked
-const BASE_URL = "https://api.mangadex.dev"
-const COVER_BASE = "https://cmdxd98sb0x3ydev.mangadex.network"
+// Use MANGADEX_BASE_URL env var for local dev when ISP blocks .org
+// On Vercel: uses .org by default. Locally: set to https://api.mangadex.dev in .env.local
+const BASE_URL = process.env.MANGADEX_BASE_URL ?? "https://api.mangadex.org"
+const COVER_BASE = process.env.MANGADEX_BASE_URL
+  ? "https://cmdxd98sb0x3ydev.mangadex.network"
+  : "https://uploads.mangadex.org"
 const ONE_PIECE_ID = "a1c7c817-4e59-43b7-9365-09675a149a6f"
 
 export async function getMangaInfo(): Promise<{ manga: Manga; coverUrl: string }> {
@@ -38,7 +41,7 @@ export async function getChapterList(): Promise<Chapter[]> {
     const json = await res.json()
 
     if (!json.data || json.data.length === 0) break
-    chapters.push(...json.data)
+    chapters.push(...json.data.filter((ch: Chapter) => !ch.attributes.externalUrl))
 
     if (chapters.length >= json.total) break
     offset += limit
@@ -65,6 +68,8 @@ export async function getChapterPages(chapterId: string): Promise<ChapterPages> 
   const res = await fetch(`${BASE_URL}/at-home/server/${chapterId}`, {
     next: { revalidate: 3600 },
   })
+  if (!res.ok) throw new Error(`at-home API error: ${res.status}`)
   const json = await res.json()
+  if (!json.chapter) throw new Error("No chapter data in at-home response")
   return json
 }

@@ -31,6 +31,7 @@ export interface ChapterAttributes {
   translatedLanguage: string
   publishAt: string
   pages: number
+  externalUrl: string | null
 }
 
 export interface Chapter {
