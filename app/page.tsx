@@ -17,24 +17,24 @@ export default async function HomePage() {
   return (
     <main className="min-h-screen bg-gray-950 text-white">
       {/* Hero */}
-      <div className="bg-gradient-to-b from-gray-800 to-gray-950 px-4 py-8">
-        <div className="max-w-3xl mx-auto flex gap-6">
+      <div className="bg-gradient-to-b from-gray-800 to-gray-950 px-4 py-6">
+        <div className="max-w-3xl mx-auto flex gap-4">
           <div className="shrink-0">
             <Image
               src={coverUrl}
               alt={title}
-              width={160}
-              height={230}
-              className="rounded-lg shadow-2xl"
+              width={110}
+              height={160}
+              className="rounded-lg shadow-2xl w-[110px] h-auto sm:w-[150px]"
               priority
             />
           </div>
-          <div className="flex flex-col justify-end gap-3">
+          <div className="flex flex-col justify-end gap-2 min-w-0">
             <div>
-              <p className="text-blue-400 text-sm font-medium uppercase tracking-wider mb-1">Manga</p>
-              <h1 className="text-3xl font-bold">{title}</h1>
+              <p className="text-blue-400 text-xs font-medium uppercase tracking-wider mb-1">Manga</p>
+              <h1 className="text-xl sm:text-3xl font-bold leading-tight">{title}</h1>
             </div>
-            <div className="flex gap-3 text-sm text-gray-400">
+            <div className="flex flex-wrap gap-x-2 gap-y-1 text-xs sm:text-sm text-gray-400">
               <span>{chapters.length} chapters (Tiếng Việt)</span>
               <span>•</span>
               <span className="capitalize">{manga.attributes.status}</span>
@@ -42,7 +42,7 @@ export default async function HomePage() {
             {chapters.length > 0 && (
               <a
                 href={`/chapter/${chapters[0].id}`}
-                className="inline-block bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors w-fit"
+                className="inline-block bg-blue-600 active:bg-blue-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors w-fit mt-1"
               >
                 Đọc từ đầu
               </a>
@@ -53,13 +53,13 @@ export default async function HomePage() {
 
       {/* Description */}
       {description && (
-        <div className="max-w-3xl mx-auto px-4 py-4">
+        <div className="max-w-3xl mx-auto px-4 py-3">
           <p className="text-gray-400 text-sm leading-relaxed line-clamp-3">{description}</p>
         </div>
       )}
 
       {/* Chapter list */}
-      <div className="max-w-3xl mx-auto mt-4">
+      <div className="max-w-3xl mx-auto mt-2">
         <div className="px-4 py-3 border-b border-gray-800">
           <h2 className="font-semibold text-gray-200">Danh sách chapter</h2>
         </div>

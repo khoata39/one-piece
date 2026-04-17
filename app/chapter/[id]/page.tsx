@@ -38,24 +38,24 @@ export default async function ChapterPage({ params }: Props) {
       />
       <ChapterReader chapter={chapter} pages={pages} />
       {/* Bottom nav */}
-      <div className="bg-gray-900 border-t border-gray-700 px-4 py-4">
-        <div className="max-w-3xl mx-auto flex justify-between">
+      <div className="bg-gray-900 border-t border-gray-700 px-4 py-3">
+        <div className="max-w-3xl mx-auto flex justify-between gap-3">
           {prevChapter ? (
             <a
               href={`/chapter/${prevChapter.id}`}
-              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white text-sm rounded transition-colors"
+              className="flex-1 min-h-[48px] flex items-center justify-center bg-gray-700 active:bg-gray-600 text-white text-sm rounded transition-colors"
             >
-              ← Chapter {prevChapter.attributes.chapter}
+              ← Ch.{prevChapter.attributes.chapter}
             </a>
-          ) : <span />}
+          ) : <span className="flex-1" />}
           {nextChapter ? (
             <a
               href={`/chapter/${nextChapter.id}`}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm rounded transition-colors"
+              className="flex-1 min-h-[48px] flex items-center justify-center bg-blue-600 active:bg-blue-500 text-white text-sm font-medium rounded transition-colors"
             >
-              Chapter {nextChapter.attributes.chapter} →
+              Ch.{nextChapter.attributes.chapter} →
             </a>
-          ) : <span />}
+          ) : <span className="flex-1" />}
         </div>
       </div>
     </div>

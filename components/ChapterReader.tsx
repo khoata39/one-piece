@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import Image from "next/image"
 import { saveProgress } from "@/lib/history"
 import type { Chapter, ChapterPages } from "@/types/mangadex"
 
@@ -30,7 +29,7 @@ export default function ChapterReader({ chapter, pages }: ChapterReaderProps) {
   return (
     <div className="flex flex-col items-center bg-black min-h-screen">
       {imageUrls.map((url, i) => (
-        <div key={i} className="w-full max-w-3xl">
+        <div key={i} className="w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={url}
@@ -41,9 +40,10 @@ export default function ChapterReader({ chapter, pages }: ChapterReaderProps) {
         </div>
       ))}
 
+      {/* Scroll to top — 48px touch target */}
       <button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 bg-gray-800 hover:bg-gray-700 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-colors text-lg"
+        className="fixed bottom-6 right-4 bg-gray-800/90 active:bg-gray-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-xl transition-colors text-xl"
         aria-label="Lên đầu trang"
       >
         ↑
