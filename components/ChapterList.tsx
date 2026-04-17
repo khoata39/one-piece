@@ -26,6 +26,7 @@ export default function ChapterList({ chapters }: ChapterListProps) {
         const isRead = readChapters.has(ch.id)
         const chNum = ch.attributes.chapter
         const chTitle = ch.attributes.title
+        const isExternal = !!ch.attributes.externalUrl
 
         return (
           <Link
@@ -39,11 +40,16 @@ export default function ChapterList({ chapters }: ChapterListProps) {
                   Đang đọc
                 </span>
               )}
+              {isExternal && (
+                <span className="text-xs bg-orange-600/80 text-white px-1.5 py-0.5 rounded shrink-0">
+                  MangaPlus
+                </span>
+              )}
               <span className={`text-sm truncate ${isRead ? "text-gray-400" : "text-white"}`}>
                 Ch.{chNum}{chTitle ? `: ${chTitle}` : ""}
               </span>
             </div>
-            <span className="text-xs text-gray-600 shrink-0 ml-2">{ch.attributes.pages}tr</span>
+            <span className="text-xs text-gray-600 shrink-0 ml-2">{isExternal ? "↗" : `${ch.attributes.pages}tr`}</span>
           </Link>
         )
       })}

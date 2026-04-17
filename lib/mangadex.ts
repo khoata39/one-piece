@@ -37,7 +37,7 @@ export async function getChapterList(): Promise<Chapter[]> {
     const json = await res.json()
 
     if (!json.data || json.data.length === 0) break
-    chapters.push(...json.data.filter((ch: Chapter) => !ch.attributes.externalUrl))
+    chapters.push(...json.data)
 
     if (chapters.length >= json.total) break
     offset += limit

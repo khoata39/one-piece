@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import { getChapterList, getChapterPages } from "@/lib/mangadex"
 import Navbar from "@/components/Navbar"
 import ChapterReader from "@/components/ChapterReader"
@@ -19,12 +19,19 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function ChapterPage({ params }: Props) {
   const { id } = await params
-  const [chapters, pages] = await Promise.all([getChapterList(), getChapterPages(id)])
+  const chapters = await getChapterList()
 
   const idx = chapters.findIndex((c) => c.id === id)
   if (idx === -1) notFound()
 
   const chapter = chapters[idx]
+
+  // MangaPlus chapters — redirect thẳng ra ngoài
+  if (chapter.attributes.externalUrl) {
+    redirect(chapter.attributes.externalUrl)
+  }
+
+  const pages = await getChapterPages(id)
   const prevChapter = idx > 0 ? chapters[idx - 1] : null
   const nextChapter = idx < chapters.length - 1 ? chapters[idx + 1] : null
 
